@@ -89,5 +89,5 @@ async function sendFAI() {
     // .then(function(data){ alert( JSON.stringify( data ) ) })
 }
 
-document.getElementById("submit_button").addEventListener("sendFAI", myFunction);
+document.getElementById("submit_button").addEventListener("click", sendFAI);
 
