@@ -54,7 +54,26 @@ async function sendFAI() {
         
     };
 
-    // alert(JSON.stringify(payload))
+    console.log(JSON.stringify(payload))
+
+    // TODO : change manifest.js to include host permissions
+    // {
+    //     "name": "FAI submit form",
+    //     "version": "1.0.0",
+    //     "description": "simpler jda fai form",
+    //     "manifest_version": 3,
+    //     "author": "Reinis Rozensteins",
+    //     "action":{
+    //         "default_popup": "index.html",
+    //         "default_title": "FAI Form"
+    //     },
+    //         "host_permissions": [
+    //     "https://*.example.com/"
+    //   ],
+    //       "permissions": [
+    //         "activeTab", "webRequest"
+    //       ]
+    // }
     
     // var data = new FormData();
     // data.append( "json", JSON.stringify( payload ) );
@@ -69,3 +88,6 @@ async function sendFAI() {
     // .then(function(res){ return res.json(); })
     // .then(function(data){ alert( JSON.stringify( data ) ) })
 }
+
+document.getElementById("submit_button").addEventListener("sendFAI", myFunction);
+
