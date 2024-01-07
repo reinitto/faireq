@@ -56,24 +56,6 @@ async function sendFAI() {
 
     console.log(JSON.stringify(payload))
 
-    // TODO : change manifest.js to include host permissions
-    // {
-    //     "name": "FAI submit form",
-    //     "version": "1.0.0",
-    //     "description": "simpler jda fai form",
-    //     "manifest_version": 3,
-    //     "author": "Reinis Rozensteins",
-    //     "action":{
-    //         "default_popup": "index.html",
-    //         "default_title": "FAI Form"
-    //     },
-    //         "host_permissions": [
-    //     "https://*.example.com/"
-    //   ],
-    //       "permissions": [
-    //         "activeTab", "webRequest"
-    //       ]
-    // }
     
     // var data = new FormData();
     // data.append( "json", JSON.stringify( payload ) );
@@ -90,4 +72,27 @@ async function sendFAI() {
 }
 
 document.getElementById("submit_button").addEventListener("click", sendFAI);
+chrome.webRequest.onBeforeSendHeaders.addListener(
+    function(details) {
+        console.log('details',details)
+        //TODO : search details.requestHeaders for access token
+        let accessToken = ""
+        if(details.requestHeaders){
+            for(let i = 0; i<details.requestHeaders.length; i++ ){
+                let reqHeader = details.requestHeaders[i]
+                console.log('reqHeader',reqHeader)
+                if(reqHeader.name == "Cookie"){
+                    accessToken = reqHeader.value
+                }
+            }
+        }
 
+        if(accessToken){
+            console.log("Access Token:")
+            console.log(accessToken)
+        }
+      return details;
+    },
+    {urls: ["<all_urls>"]},
+    ["requestHeaders", "extraHeaders"]
+  )
